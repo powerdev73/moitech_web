@@ -1,7 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 import NavigationComp from "../components/NavigationComp";
 
 const ProjectTest4 = () => {
+  const [currnetDate, setCurrentDate] = useState();
+  const [hisoryList, setHistoryList] = useState([]);
+  const loadList = () => {
+    await axios
+          .get(process.env.MOITECH_API_URL + "/api/JetAuthTestHistory")
+          .then((res) 
+          => (historyList = res.data));
+  };
+  const loadUpdatTimeList = () => {
+    await axios
+          .get(process.env.MOITECH_API_URL + `/api/JetAuthTestHistory/${currentDateTime}`)
+          .then((res) 
+          => (historyList = res.data));
+  };
   return (
     <>
       <NavigationComp />
