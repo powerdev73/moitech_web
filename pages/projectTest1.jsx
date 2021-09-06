@@ -4,17 +4,13 @@ import NavigationComp from "../components/NavigationComp";
 const ProjectTest1 = () => {
   const [currnetDate, setCurrentDate] = useState();
   const [hisoryList, setHistoryList] = useState([]);
-  const loadList = () => {
-    await axios
-          .get(process.env.MOITECH_API_URL + "/api/JetAuthTestHistory")
-          .then((res) 
-          => (historyList = res.data));
+  const loadList = async () => {
+    await axios.get(process.env.MOITECH_API_URL + "/api/JetAuthTestHistory").then((res) => (historyList = res.data));
   };
-  const loadUpdatTimeList = () => {
+  const loadUpdatTimeList = async () => {
     await axios
-          .get(process.env.MOITECH_API_URL + `/api/JetAuthTestHistory/${currentDateTime}`)
-          .then((res) 
-          => (historyList = res.data));
+      .get(process.env.MOITECH_API_URL + `/api/JetAuthTestHistory/${currentDateTime}`)
+      .then((res) => (historyList = res.data));
   };
 
   return (
@@ -120,6 +116,26 @@ const ProjectTest1 = () => {
               <li>1-2회의 과정을 통해 5회까지 측정을 하여 완료가 됨</li>
             </ol>
           </div>
+          <div style={{ textAlign: "right", fontSize: "120%" }}>
+            현재시간: <span id="currentTime" class="mt-5"></span>
+          </div>
+          <div style={{ textAlign: "right" }}>
+            <input type="button" class="btn btn-lg btn-primary" id="start" value="히스토리 리스트" />
+            <input type="button" class="btn btn-lg btn-warning" id="write" value="입력" />
+          </div>
+          <hr style={{ margin: "4rem 1", padding: "1rem" }} />
+          <table class="table table-bordered" id="resultTable">
+            <thead>
+              <tr style={{ background: "var(--bs-table-striped-bg)" }}>
+                <th>회수</th>
+                <th>미세먼지 PM10 측정시간</th>
+                <th>모이기술 시제품 센서값</th>
+                <th>TSI-9306 센서값</th>
+                <th>정확도</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
         </div>
       </div>
       <script
