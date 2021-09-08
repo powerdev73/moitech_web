@@ -1,22 +1,45 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import NavigationComp from "../components/NavigationComp";
+import axios from "axios";
 
 const ProjectTest1 = () => {
   const [currnetDate, setCurrentDate] = useState();
-  const [hisoryList, setHistoryList] = useState([]);
+  const [historyList, setHistoryList] = useState([]);
+
   const loadList = async () => {
-    await axios.get(process.env.MOITECH_API_URL + "/api/JetAuthTestHistory").then((res) => (historyList = res.data));
+    await axios.get(process.env.MOITECH_API_URL + `/api/JetAuthTestHistory`).then((res) => {
+      console.log(res.data.list);
+      setHistoryList(res.data.list);
+    });
   };
   const loadUpdatTimeList = async () => {
-    await axios
-      .get(process.env.MOITECH_API_URL + `/api/JetAuthTestHistory/${currentDateTime}`)
-      .then((res) => (historyList = res.data));
+    await axios.get(process.env.MOITECH_API_URL + `/api/JetAuthTestHistory/${currentDateTime}`).then((res) => {
+      setHistoryList(res.data.list);
+    });
   };
 
+  const onClickBtnStart = () => {
+    loadList();
+  };
+
+  useEffect(() => {
+    console.log("process.env.MOITECH_API_URL : " + process.env.MOITECH_API_URL);
+    console.log("historyList : " + historyList);
+    if (historyList !== null) {
+      historyList.map((item, idx) => {
+        console.log("idx : " + item.idx);
+        console.log("facilityId : " + item.facilityId);
+        console.log("nodeId : " + item.nodeId);
+        console.log("presentationTime : " + item.presentationTime);
+        console.log("sensorPm10 : " + item.sensorPm10);
+        console.log("sensorPm25 : " + item.sensorPm25);
+      });
+    }
+  }, []);
   return (
     <>
       <NavigationComp />
-      <div class="container mt-5 pb-5">
+      <div className="container mt-5 pb-5">
         <div
           style={{
             borderBottom: "3px solid #333",
@@ -28,7 +51,7 @@ const ProjectTest1 = () => {
         >
           <h3 style={{ marginBbottom: "1rem" }}>시험 항목 #1 - 초미세먼지 측정 정확률</h3>
           <h3 style={{ color: "white", background: "#333", padding: ".2rem .5rem", borderRadius: ".4rem" }}>상세</h3>
-          <table class="table table-bordered mt-4">
+          <table className="table table-bordered mt-4">
             <thead>
               <tr style={{ background: "var(--bs-table-striped-bg)" }}>
                 <th>시험항목</th>
@@ -50,7 +73,7 @@ const ProjectTest1 = () => {
               </tr>
             </tbody>
           </table>
-          <table class="table table-bordered">
+          <table className="table table-bordered">
             <thead>
               <tr style={{ background: "var(--bs-table-striped-bg)" }}>
                 <th style={{ width: "150px" }}>시험항목</th>
@@ -106,25 +129,31 @@ const ProjectTest1 = () => {
             <h5 style={{ fontWeight: "bold" }}>시험방법</h5>
             <ol>
               <li>
-                <kbd class="blue-kbd">시작</kbd> 버튼 을 누르면 하이브리드 싸이클론 집진기 센서가 동작하며, 약 20분 내
-                센서 값이 표시됨.
+                <kbd className="blue-kbd">시작</kbd> 버튼 을 누르면 하이브리드 싸이클론 집진기 센서가 동작하며, 약 20분
+                내 센서 값이 표시됨.
               </li>
               <li>
-                TSI-9306 측정기로 PM10 값을 측정, 그 값을 TEXT창에 입력한 후에 <kbd class="yellow-kbd">입력</kbd> 버튼을
-                누르면 1회 측정 정확도가 산출됨
+                TSI-9306 측정기로 PM10 값을 측정, 그 값을 TEXT창에 입력한 후에 <kbd className="yellow-kbd">입력</kbd>{" "}
+                버튼을 누르면 1회 측정 정확도가 산출됨
               </li>
               <li>1-2회의 과정을 통해 5회까지 측정을 하여 완료가 됨</li>
             </ol>
           </div>
           <div style={{ textAlign: "right", fontSize: "120%" }}>
-            현재시간: <span id="currentTime" class="mt-5"></span>
+            현재시간: <span id="currentTime" className="mt-5"></span>
           </div>
           <div style={{ textAlign: "right" }}>
-            <input type="button" class="btn btn-lg btn-primary" id="start" value="히스토리 리스트" />
-            <input type="button" class="btn btn-lg btn-warning" id="write" value="입력" />
+            <input
+              type="button"
+              className="btn btn-lg btn-primary"
+              id="start"
+              value="히스토리 리스트"
+              onClick={onClickBtnStart}
+            />
+            <input type="button" className="btn btn-lg btn-warning" id="write" value="입력" />
           </div>
           <hr style={{ margin: "4rem 1", padding: "1rem" }} />
-          <table class="table table-bordered" id="resultTable">
+          <table className="table table-bordered" id="resultTable">
             <thead>
               <tr style={{ background: "var(--bs-table-striped-bg)" }}>
                 <th>회수</th>
