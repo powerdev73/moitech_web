@@ -35,3 +35,7 @@ kbd.red-kbd {
   border-bottom: "3px solid #333";
   padding: "1.5rem 1rem";
 }
+
+.btn-space {
+  margin-right: 5px;
+}

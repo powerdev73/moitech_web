@@ -3,18 +3,18 @@ import NavigationComp from "../components/NavigationComp";
 
 const ProjectTest5 = () => {
   const [currnetDate, setCurrentDate] = useState();
-  const [hisoryList, setHistoryList] = useState([]);
-  const loadList = () => {
-    await axios
-          .get(process.env.MOITECH_API_URL + "/api/JetAuthTestHistory")
-          .then((res) 
-          => (historyList = res.data));
+  const [historyList, setHistoryList] = useState([]);
+
+  const loadList = async () => {
+    await axios.get(process.env.MOITECH_API_URL + `/api/JetAuthTestHistory`).then((res) => {
+      console.log(res.data.list);
+      setHistoryList(res.data.list);
+    });
   };
-  const loadUpdatTimeList = () => {
-    await axios
-          .get(process.env.MOITECH_API_URL + `/api/JetAuthTestHistory/${currentDateTime}`)
-          .then((res) 
-          => (historyList = res.data));
+  const loadUpdatTimeList = async () => {
+    await axios.get(process.env.MOITECH_API_URL + `/api/JetAuthTestHistory/${currentDateTime}`).then((res) => {
+      setHistoryList(res.data.list);
+    });
   };
   return (
     <>

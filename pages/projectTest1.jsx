@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import NavigationComp from "../components/NavigationComp";
+import DateTimeComp from "../components/DateTimeComp";
 import axios from "axios";
 
 const ProjectTest1 = () => {
@@ -140,12 +141,12 @@ const ProjectTest1 = () => {
             </ol>
           </div>
           <div style={{ textAlign: "right", fontSize: "120%" }}>
-            현재시간: <span id="currentTime" className="mt-5"></span>
+            현재시간: <DateTimeComp />
           </div>
           <div style={{ textAlign: "right" }}>
             <input
               type="button"
-              className="btn btn-lg btn-primary"
+              className="btn btn-lg btn-primary btn-space"
               id="start"
               value="히스토리 리스트"
               onClick={onClickBtnStart}
@@ -163,7 +164,20 @@ const ProjectTest1 = () => {
                 <th>정확도</th>
               </tr>
             </thead>
-            <tbody></tbody>
+            <tbody>
+              {historyList &&
+                historyList.map((item, idx) => {
+                  return (
+                    <tr style={{ background: "var(--bs-table-striped-bg)" }}>
+                      <td>{item.title}</td>
+                      <td>{item.title}</td>
+                      <td>{item.title}</td>
+                      <td>{item.title}</td>
+                      <td>{item.title}</td>
+                    </tr>
+                  );
+                })}
+            </tbody>
           </table>
         </div>
       </div>
