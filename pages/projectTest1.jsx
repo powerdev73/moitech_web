@@ -168,12 +168,12 @@ const ProjectTest1 = () => {
               {historyList &&
                 historyList.map((item, idx) => {
                   return (
-                    <tr style={{ background: "var(--bs-table-striped-bg)" }}>
-                      <td>{item.title}</td>
-                      <td>{item.title}</td>
-                      <td>{item.title}</td>
-                      <td>{item.title}</td>
-                      <td>{item.title}</td>
+                    <tr key={item.idx}>
+                      <td>{item.idx}</td>
+                      <td>{item.presentationTime}</td>
+                      <td>{item.sensorPm10}</td>
+                      <td>{item.sensorPm25}</td>
+                      <td>{item.nodeId}</td>
                     </tr>
                   );
                 })}
